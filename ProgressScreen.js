@@ -1,6 +1,32 @@
 import React, { useState } from 'react';
 import { View, Text, TextInput, Button, StyleSheet, Dimensions, ScrollView } from 'react-native';
 import { LineChart } from 'react-native-chart-kit';
+import * as Notifications from 'expo-notifications';
+import { useEffect } from 'react';
+
+useEffect(() => {
+  Notifications.requestPermissionsAsync();
+}, []);
+
+import * as Notifications from 'expo-notifications';
+
+async function scheduleDailyWeightReminder() {
+  await Notifications.cancelAllScheduledNotificationsAsync(); // Optional: prevent duplicates
+
+  await Notifications.scheduleNotificationAsync({
+    content: {
+      title: '🏋️ Track Your Weight',
+      body: 'Don’t forget to log today’s weight!',
+    },
+    trigger: {
+      hour: 9,
+      minute: 0,
+      repeats: true,
+    },
+  });
+}
+<Button title="Enable Daily Weight Reminder" onPress={scheduleDailyWeightReminder} />
+
 
 export default function ProgressScreen() {
   const [weightData, setWeightData] = useState(Array(30).fill(null));

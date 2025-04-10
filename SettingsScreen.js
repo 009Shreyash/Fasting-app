@@ -1,28 +1,35 @@
-import React, { useState } from 'react';
-import { View, Text, Button, StyleSheet } from 'react-native';
-import * as Notifications from 'expo-notifications';
+// SettingsScreen.js
+import React from 'react';
+import { View, Text, StyleSheet, Button } from 'react-native';
 
 export default function SettingsScreen() {
-  const [goal, setGoal] = useState(16);
-
-  const setReminder = async () => {
-    await Notifications.scheduleNotificationAsync({
-      content: { title: 'Start Fasting!', body: 'Time to begin your fasting session.' },
-      trigger: { seconds: 10 }, // For demo purposes, replace with real time later
-    });
-  };
-
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Settings</Text>
-      <Text>Fasting Goal: {goal} hours</Text>
-      <Button title="Set 16-Hour Goal" onPress={() => setGoal(16)} />
-      <Button title="Set Reminder" onPress={setReminder} />
+      <Text style={styles.title}>⚙️ Settings</Text>
+      
+      <View style={styles.section}>
+        <Text style={styles.label}>Fasting Goal:</Text>
+        <Text style={styles.value}>16 hours</Text>
+        <Button title="Change Goal" onPress={() => {}} />
+      </View>
+
+      <View style={styles.section}>
+        <Text style={styles.label}>Daily Reminder:</Text>
+        <Button title="Set Reminder" onPress={() => {}} />
+      </View>
     </View>
   );
 }
 
 const styles = StyleSheet.create({
-  container: { flex: 1, justifyContent: 'center', alignItems: 'center' },
-  title: { fontSize: 24, marginBottom: 20 }
+  container: { flex: 1, padding: 20, backgroundColor: '#fff' },
+  title: { fontSize: 24, fontWeight: 'bold', marginBottom: 20 },
+  section: {
+    marginBottom: 30,
+    backgroundColor: '#f4f4f4',
+    padding: 16,
+    borderRadius: 10,
+  },
+  label: { fontSize: 16, marginBottom: 6 },
+  value: { fontSize: 20, fontWeight: 'bold', marginBottom: 6 },
 });
